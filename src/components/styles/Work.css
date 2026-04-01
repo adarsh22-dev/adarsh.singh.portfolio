@@ -1,0 +1,321 @@
+/* ============================================================
+   WORK SECTION — DESKTOP HORIZONTAL SCROLL
+   Pinned via GSAP ScrollTrigger. The section stays fixed while
+   the inner flex row translates left until all cards are seen.
+   ============================================================ */
+
+/* The pinned wrapper — full-viewport, dark bg, sits at z:2 */
+.work-section {
+  height: 100vh;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+  background-color: var(--backgroundColor);
+  /* overflow:hidden clips the translating flex row */
+  overflow: hidden;
+}
+
+.work-section h2 {
+  margin-top: 100px;
+  font-size: 70px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.work-section h2 > span { color: var(--accentColor); }
+
+/* Column: heading on top, then the scrolling card row */
+.work-container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ── Horizontal card row ─────────────────────────────────── */
+.work-flex {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  /* Offset so first card left-edge lines up with section-container */
+  margin-left: -80px;
+  will-change: transform;
+  position: relative;
+}
+
+/* Horizontal rules spanning the full scroll width */
+.work-flex::before,
+.work-flex::after {
+  content: "";
+  position: absolute;
+  left: -100vw;
+  width: 99999px;          /* effectively infinite */
+  height: 1px;
+  background: #363636;
+  pointer-events: none;
+  z-index: 0;
+}
+.work-flex::before { top: 0; }
+.work-flex::after  { top: 100%; }
+
+/* ── Single card ─────────────────────────────────────────── */
+.work-box {
+  flex-shrink: 0;
+  width: 580px;
+  padding: 70px 80px;
+  box-sizing: border-box;
+  border-right: 1px solid #363636;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: flex-start;
+  position: relative;
+  z-index: 1;
+  transition: background 0.2s;
+}
+.work-box:hover { background: rgba(255,255,255,0.018); }
+
+/* Even cards: image on top, info on bottom */
+.work-flex .work-box:nth-child(even) { flex-direction: column-reverse; }
+
+/* ── Info block ─────────────────────────────────────────── */
+.work-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+.work-title > div  { text-align: right; }
+.work-title h3 {
+  font-size: 50px;
+  line-height: 1;
+  margin: 0;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  flex-shrink: 0;
+}
+.work-title h4 {
+  font-size: 17px;
+  font-weight: 500;
+  margin: 0 0 4px;
+  color: #fff;
+  line-height: 1.25;
+}
+.work-title p {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--accentColor);
+  margin: 0;
+}
+
+.work-info h4 {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0 0 6px;
+  color: rgba(255,255,255,0.7);
+}
+.work-info > p {
+  font-weight: 200;
+  font-size: 13px;
+  color: #adacac;
+  margin: 0;
+  line-height: 1.6;
+  width: 90%;
+}
+.work-click-hint {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--accentColor);
+  opacity: 0.6;
+  letter-spacing: 0.4px;
+  transition: opacity 0.2s;
+}
+.work-box:hover .work-click-hint { opacity: 1; }
+
+/* ── Image block ─────────────────────────────────────────── */
+.work-image {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.work-image-in {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+}
+.work-image img {
+  max-width: 100%;
+  max-height: 300px;
+  display: block;
+  object-fit: cover;
+}
+
+/* Circular arrow button that appears on image hover */
+.work-link {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--backgroundColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(255,255,255,0.35),
+              inset 0 0 10px #393939;
+  opacity: 0;
+  transition: opacity 0.25s, transform 0.25s;
+  z-index: 2;
+}
+.work-image-in:hover .work-link {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media only screen and (max-height: 900px) {
+  .work-image img  { max-height: 220px; }
+  .work-box        { padding-top: 40px; padding-bottom: 40px; gap: 30px; }
+  .work-section h2 { font-size: 56px; margin-top: 70px; }
+}
+@media only screen and (max-width: 1600px) {
+  .work-box  { width: 500px; padding: 60px 70px; }
+  .work-flex { margin-left: -70px; }
+}
+@media only screen and (max-width: 1400px) {
+  .work-title h3   { font-size: 38px; }
+  .work-box        { width: 420px; padding: 50px; }
+  .work-flex       { margin-left: -50px; }
+  .work-section h2 { font-size: 52px; }
+}
+@media only screen and (max-width: 1200px) {
+  .work-box        { width: 340px; padding: 36px; }
+  .work-flex       { margin-left: -36px; }
+  .work-section h2 { font-size: 44px; }
+}
+@media only screen and (max-height: 650px) {
+  .work-image img  { max-height: 180px; }
+  .work-section h2 { font-size: 36px; }
+  .work-box        { gap: 20px; }
+}
+
+/* ============================================================
+   MOBILE  (≤1024px)  — vertical card grid
+   ============================================================ */
+.work-section-mobile {
+  padding: 100px 0 100px; /* top clears fixed navbar */
+  background-color: var(--backgroundColor);
+  position: relative;
+  z-index: 3;
+}
+.work-mobile-header { 
+  padding-bottom: 36px;
+  opacity: 0; /* GSAP will animate in */
+  transform: translateY(-30px);
+  will-change: transform, opacity;
+}
+.work-mobile-header h2 {
+  font-size: clamp(36px, 8vw, 60px);
+  font-weight: 500;
+  margin: 0 0 12px;
+}
+.work-mobile-header h2 span { color: var(--accentColor); }
+.work-mobile-intro {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.4);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.work-mobile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.08);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.work-mobile-card {
+  background: #0b080c;
+  padding: 24px 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: background 0.2s;
+  opacity: 0; /* GSAP will animate in */
+  transform: translateY(50px) scale(0.97); /* match GSAP fromTo start state */
+  will-change: transform, opacity;
+}
+.work-mobile-card:hover { background: rgba(194,164,255,0.05); }
+
+.work-mobile-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.work-mobile-num {
+  font-size: 24px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.12);
+  line-height: 1;
+}
+.work-mobile-cat {
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--accentColor);
+  text-align: right;
+  line-height: 1.4;
+  max-width: 55%;
+}
+
+.work-mobile-title    { font-size: 15px; font-weight: 600; color: #fff; margin: 0; line-height: 1.25; }
+.work-mobile-subtitle { font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.35); margin: 0; }
+
+.work-mobile-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.work-mobile-tag  {
+  font-size: 10px; padding: 2px 9px;
+  border-radius: 20px; border: 1px solid rgba(194,164,255,0.25);
+  color: rgba(255,255,255,0.4);
+}
+.work-mobile-live {
+  font-size: 11px; color: var(--accentColor);
+  text-decoration: none; margin-top: 2px; opacity: 0.75;
+}
+.work-mobile-live:hover { opacity: 1; color: var(--accentColor); }
+
+@media (max-width: 560px) {
+  .work-mobile-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Mobile work card image ── */
+.work-mobile-img {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 4px;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.work-mobile-img img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+.work-mobile-card:hover .work-mobile-img img {
+  transform: scale(1.03);
+}
+
+@media (max-width: 560px) {
+  .work-mobile-img img { height: 200px; }
+}

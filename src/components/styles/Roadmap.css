@@ -1,0 +1,64 @@
+/* ============================================================
+   ROADMAP SECTION
+   ============================================================ */
+.roadmap-section {
+  padding: 100px 0 120px;
+  display: flex;
+  flex-direction: column;
+  width: var(--cWidth);
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  background-color: var(--backgroundColor);
+}
+.roadmap-label {
+  font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accentColor); margin: 0 0 16px;
+}
+.roadmap-heading {
+  font-size: clamp(40px, 5vw, 65px); font-weight: 400; margin: 0 0 14px;
+  background: linear-gradient(0deg, #7f40ff, #fff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.roadmap-heading span { font-style: italic; }
+.roadmap-sub {
+  font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.45);
+  margin: 0 0 60px; max-width: 600px; line-height: 1.7;
+}
+.roadmap-list { display: flex; flex-direction: column; gap: 0; }
+.roadmap-item {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.1);
+  align-items: center;
+}
+.roadmap-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
+.roadmap-period {
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accentColor); display: block; margin-bottom: 10px;
+}
+.roadmap-meta h3 {
+  font-size: clamp(20px, 1.8vw, 26px); font-weight: 500; margin: 0 0 10px;
+}
+.roadmap-meta p {
+  font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.55); margin: 0; line-height: 1.65;
+}
+.roadmap-bar-wrap { display: flex; flex-direction: column; gap: 10px; }
+.roadmap-bar-label {
+  display: flex; justify-content: space-between;
+  font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 300;
+}
+.roadmap-bar {
+  height: 4px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;
+}
+.roadmap-fill {
+  height: 100%; background: linear-gradient(90deg, #7f40ff, #c084fc); border-radius: 4px;
+}
+.roadmap-note {
+  margin-top: 50px; font-size: 15px; font-weight: 300;
+  color: rgba(255,255,255,0.45); max-width: 560px; line-height: 1.7;
+}
+@media (max-width: 768px) {
+  .roadmap-item { grid-template-columns: 1fr; gap: 20px; padding: 30px 0; }
+  .roadmap-section { padding: 70px 0 80px; }
+}

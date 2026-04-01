@@ -1,0 +1,228 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+
+:root {
+  font-family: "Geist", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+  color-scheme: light dark;
+  color: #eae5ec;
+  background-color: var(--backgroundColor);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  --accentColor: #c2a4ff;
+  --backgroundColor: #0b080c;
+  --vh: 100vh;
+  --vh: 100svh;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Geist", sans-serif;
+}
+body {
+  overflow: hidden;
+  margin: 0;
+  height: auto;
+  background-color: #000;
+  flex-grow: 1;
+  --cWidth: calc(100% - 30px);
+  --cMaxWidth: 1920px;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Project detail page — override GSAP body lock for native scroll */
+body.pd-page {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  scroll-behavior: auto !important; /* prevent smooth-scroll fighting instant reset */
+}
+body.pd-page html,
+html:has(body.pd-page) {
+  scroll-behavior: auto !important;
+}
+body.pd-page #smooth-wrapper,
+body.pd-page #smooth-content {
+  overflow: visible !important;
+  position: static !important;
+  transform: none !important;
+  height: auto !important;
+}
+
+/* On mobile, allow native scroll */
+@media (max-width: 1024px) {
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  #smooth-wrapper, #smooth-content {
+    overflow: visible !important;
+    height: auto !important;
+    position: static !important;
+    transform: none !important;
+  }
+}
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--accentColor);
+}
+main {
+  opacity: 1;
+  transition: 0.3s;
+}
+.main-active {
+  opacity: 0;
+  animation: fadeIn 1s 1;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeIn {
+  100% { opacity: 1; }
+}
+.main-body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+.container-main {
+  width: 100%;
+  margin: auto;
+  position: relative;
+}
+.container1 {
+  width: var(--cWidth);
+  height: var(--vh);
+  margin: auto;
+  position: relative;
+}
+.split-line { overflow: hidden; }
+.split-h2 {
+  overflow: hidden;
+  display: flex;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+.techstack {
+  width: 100%;
+  position: relative;
+  height: var(--vh);
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 0;
+}
+.techstack h2 {
+  font-size: 80px;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  top: 120px;
+  left: 0;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   SECTION STACKING — GSAP pin z-index fix
+   ─────────────────────────────────────────────────────────────
+   Rules:
+   1. Pinned sections (.work-section, .cert-section) sit at z:2
+   2. .post-pin-cover sits at z:10 — it renders above Work pin
+      as the user scrolls past it (normal-flow stacking wins)
+   3. .post-cert-cover inside that sits at z:5 — covers Cert pin
+   4. Every cover element MUST have background-color to actually
+      visually cover the pinned layer beneath it
+   ============================================================ */
+
+/* ── Pinned sections ── */
+.work-section,
+.cert-section {
+  position: relative;
+  z-index: 2;
+  background-color: var(--backgroundColor);
+}
+
+/* ── Post-Work cover layer ── */
+.post-pin-cover {
+  position: relative;
+  z-index: 10;
+  background-color: var(--backgroundColor);
+  /* isolation creates its own stacking context so children stack
+     correctly relative to each other without leaking z-index */
+  isolation: isolate;
+}
+
+/* TechStack inside cover */
+.techstack-cover {
+  position: relative;
+  z-index: 1;
+  background-color: var(--backgroundColor);
+}
+.techstack-cover .techstack {
+  margin-bottom: 0;
+}
+
+/* Roadmap inside cover */
+.roadmap-cover {
+  position: relative;
+  z-index: 1;
+  background-color: var(--backgroundColor);
+}
+.roadmap-cover .roadmap-section {
+  background-color: var(--backgroundColor);
+}
+
+/* Certifications inside cover — its pin is z:2 within the isolate ctx */
+.cert-section {
+  isolation: isolate;
+}
+
+/* Post-Cert cover — sits above cert pin */
+.post-cert-cover {
+  position: relative;
+  z-index: 5;
+  background-color: var(--backgroundColor);
+}
+
+/* Mobile variants always above pinned desktop sections */
+.work-section-mobile,
+.cert-section-mobile {
+  position: relative;
+  z-index: 3;
+  background-color: var(--backgroundColor);
+}
+
+@media only screen and (max-width: 1600px) {
+  .section-container { width: 1200px; max-width: calc(100% - 160px); }
+}
+@media only screen and (max-width: 1400px) {
+  .section-container { width: 900px; }
+}
+@media only screen and (max-width: 900px) {
+  .section-container { width: 500px; max-width: var(--cWidth); }
+  .techstack h2 { font-size: 40px; }
+}
+@media (max-width: 768px) {
+  .section-container {
+    width: calc(100% - 32px) !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box;
+  }
+}
+
+/* Mobile global */
+@media (max-width: 1024px) {
+  body { overflow-x: hidden; }
+  #smooth-wrapper,
+  #smooth-content {
+    overflow: visible !important;
+    transform: none !important;
+  }
+}
