@@ -231,4 +231,17 @@ main {
   .landing-info {
   bottom: 90px !important;
 }
+  .landing-info-h2 {
+  background-color: #fff0 !important;
+}
+  .about-me p {
+  font-size: clamp(16px,5vw,28px);
+  font-weight: 500 !important;
+  line-height: clamp(22px,6.5vw,34px);
+  letter-spacing: .5px;
+}
+  .about-name {
+  color: var(--accentColor);
+  font-weight: 500 !important;
+}
 }
