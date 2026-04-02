@@ -226,3 +226,9 @@ main {
     transform: none !important;
   }
 }
+
+@media (min-width: 300px) and (max-width: 768px) {
+  .landing-info {
+  bottom: 90px !important;
+}
+}
