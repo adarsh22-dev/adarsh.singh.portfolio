@@ -258,4 +258,14 @@ main {
   --vh: 100vh;
   --vh: 100svh;
 }
+  h2.landing-info-h2 {
+  color: #c481ff;
+  font-size: 42px;
+  width: 120%;
+  font-family: Geist,sans-serif;
+  font-weight: 600;
+  position: relative;
+  margin: 0 0 0 -5px;
+  background-color: #fff0 !important;
+}
 }
